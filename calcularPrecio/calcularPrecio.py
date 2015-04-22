@@ -43,9 +43,16 @@ def calcularPrecio(tarifa, tiempoDeReservacionr):
             else:
                 minutosFinDeSemana += 1
             tiempoActual += minuto
+        if(minutosNormales % 60 > 0):
+            horasNormales = minutosNormales/60 + 1
+        elif(minutosFinDeSemana % 60 > 0):
+            horasFinDeSemana = minutosFinDeSemana/60 + 1
+        else:
+            horasNormales = minutosNormales/60
+            horasFinDeSemana = minutosFinDeSemana/60
         return Decimal(
-            minutosNormales*tarifa.tasaDiaSemana/60 +
-            minutosFinDeSemana*tarifa.tasaFinSemana/60
+            horasNormales*tarifa.tasaDiaSemana +
+            horasFinDeSemana*tarifa.tasaFinSemana
         ).quantize(Decimal('1.00'))
         
         
