@@ -81,7 +81,7 @@ class TestcalcularPrecio(unittest.TestCase):
         tiemporeserva = [datetime(2015, 4, 24, 23, 50), datetime(2015, 4, 25, 0, 10)]
         self.assertEquals(calcularPrecio.calcularPrecio(tarifa, tiemporeserva), Decimal(5).quantize(Decimal('1.00')))
 
-
+    
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
