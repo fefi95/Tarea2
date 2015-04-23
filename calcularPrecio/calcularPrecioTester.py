@@ -53,14 +53,14 @@ class TestcalcularPrecio(unittest.TestCase):
         self.assertTrue("La reserva no debe ser mayor a siete (7) dias." in context.exception)
 
     def testMaxTarifaMinReserva(self):
-        tarifa = calcularPrecio.Tarifa(2**28, 3**27) 
+        tarifa = calcularPrecio.Tarifa(2**31, 3**27) 
         tiemporeserva = [datetime(2004, 4, 22, 5, 50), datetime(2004, 4, 22, 6, 5)]
         self.assertEquals(calcularPrecio.calcularPrecio(tarifa, tiemporeserva), Decimal(2**28).quantize(Decimal('1.00')))
 
     def testMaxTarifaMaxReserva(self):
-        tarifa = calcularPrecio.Tarifa(2**28, 3**27) 
+        tarifa = calcularPrecio.Tarifa(2**31, 3**27) 
         tiemporeserva = [datetime(2004, 4, 5, 5, 50), datetime(2004, 4, 12, 5, 50)]
-        self.assertEquals(calcularPrecio.calcularPrecio(tarifa, tiemporeserva), Decimal((2**28)*24*5+(3**27*24*2)).quantize(Decimal('1.00')))
+        self.assertEquals(calcularPrecio.calcularPrecio(tarifa, tiemporeserva), Decimal((2**31)*24*5+(3**27*24*2)).quantize(Decimal('1.00')))
 
         
 if __name__ == "__main__":
