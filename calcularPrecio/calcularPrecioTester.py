@@ -43,6 +43,13 @@ class TestcalcularPrecio(unittest.TestCase):
 
         self.assertTrue("La reserva debe ser como minimo de quince (15) minutos" in context.exception)
 
+    def testReservaMayor7(self):
+        tarifa = calcularPrecio.Tarifa(2, 3) 
+        tiemporeserva = [datetime(2015, 2, 20, 15, 50), datetime(2015, 2, 27, 15, 51)]
+        with self.assertRaises(Exception) as context:
+            calcularPrecio.calcularPrecio(tarifa, tiemporeserva)
+
+        self.assertTrue("La reserva no debe ser mayor a siete (7) dias." in context.exception)
 
     
 if __name__ == "__main__":
