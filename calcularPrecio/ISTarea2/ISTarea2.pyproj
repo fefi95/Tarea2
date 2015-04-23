@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>e653c0d4-49c8-4042-ac7a-7bee5b725367</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>ISTarea2.py</StartupFile>
+    <StartupFile>calcularPrecio.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,7 +22,8 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ISTarea2.py" />
+    <Compile Include="calcularPrecio.py" />
+    <Compile Include="calcularPrecioTester.py" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
