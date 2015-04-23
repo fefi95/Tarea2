@@ -25,7 +25,7 @@ def calcularPrecio(tarifa, tiempoDeReservacionr):
         if tiempoDeReservacionr[1] - tiempoDeReservacionr[0] > timedelta(days=7):
             raise Exception("La reserva no debe ser mayor a siete (7) dias.")
         if tiempoDeReservacionr[1] - tiempoDeReservacionr[0] < timedelta(minutes=15):
-            raise Exception("La reserva debe ser como minimo de quince (15) mintuos")
+            raise Exception("La reserva debe ser como minimo de quince (15) minutos")
              
         minutosNormales    = 0
         minutosFinDeSemana = 0
@@ -43,13 +43,17 @@ def calcularPrecio(tarifa, tiempoDeReservacionr):
             else:
                 minutosFinDeSemana += 1
             tiempoActual += minuto
-        if(minutosNormales % 60 != 0):
-            minutosNormales += 60            
-        if(minutosFinDeSemana % 60 != 0):
-            minutosFinDeSemana += 60
+            
+            #Si el resto es diferente de 0 se cobra 1 hora mas
+        if minutosNormales % 60 != 0:
+            minutosNormales += (60 - minutosNormales % 60)
+        
+        if minutosFinDeSemana % 60 != 0:
+            minutosFinDeSemana += (60 - minutosFinDeSemana% 60)
+        
         return Decimal(
-            minutosNormales*tarifa.tasaDiaSemana/60 +
-            minutosFinDeSemana*tarifa.tasaFinSemana/60
+            minutosNormales*tarifa.tasaDiaSemana/Decimal(60) +
+            minutosFinDeSemana*tarifa.tasaFinSemana/Decimal(60)
         ).quantize(Decimal('1.00'))
         
         
