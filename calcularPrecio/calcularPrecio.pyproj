@@ -3,15 +3,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>e653c0d4-49c8-4042-ac7a-7bee5b725367</ProjectGuid>
+    <ProjectGuid>ef357658-17cc-4597-ba73-ff76aeb324a9</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>calcularPrecio.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>ISTarea2</Name>
-    <RootNamespace>ISTarea2</RootNamespace>
+    <Name>calcularPrecio</Name>
+    <RootNamespace>calcularPrecio</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
