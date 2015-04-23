@@ -56,6 +56,37 @@ class TestcalcularPrecio(unittest.TestCase):
         tiemporeserva = [datetime(2004, 4, 5, 5, 50), datetime(2004, 4, 12, 5, 50)]
         self.assertEquals(calcularPrecio.calcularPrecio(tarifa, tiemporeserva), Decimal((2**31)*24*5+(3**27*24*2)).quantize(Decimal('1.00')))
 
+    def testTarifaCero15Minutos(self):
+        tarifa = calcularPrecio.Tarifa(0, 0) 
+        tiemporeserva = [datetime(MAXYEAR, 12, 31, 23, 44), datetime(MAXYEAR, 12, 31, 23, 59)]
+        self.assertEquals(calcularPrecio.calcularPrecio(tarifa, tiemporeserva), Decimal(0).quantize(Decimal('1.00')))
+
+    def testTarifaCero7Dias(self):
+        tarifa = calcularPrecio.Tarifa(0, 0) 
+        tiemporeserva = [datetime(MAXYEAR, 12, 24, 23, 59), datetime(MAXYEAR, 12, 31, 23, 59)]
+        self.assertEquals(calcularPrecio.calcularPrecio(tarifa, tiemporeserva), Decimal(0).quantize(Decimal('1.00')))
+
+    def testTarifaCasiCeroSemana(self):
+        tarifa = calcularPrecio.Tarifa(Decimal(0.01), 0) 
+        tiemporeserva = [datetime(2015, 4, 24, 1), datetime(2015, 4, 24, 2, 1)]
+        self.assertEquals(calcularPrecio.calcularPrecio(tarifa, tiemporeserva), Decimal(0.02).quantize(Decimal('1.00')))
+
+    def testTarifaCasiCeroFinSemana(self):
+        tarifa = calcularPrecio.Tarifa(0, Decimal(0.01))
+        tiemporeserva = [datetime(2015, 4, 26, 1), datetime(2015, 4, 26, 2, 1)]
+        self.assertEquals(calcularPrecio.calcularPrecio(tarifa, tiemporeserva), Decimal(0.02).quantize(Decimal('1.00')))
+ 
+    def testTarifa10MinVie10MinSab(self):
+        tarifa = calcularPrecio.Tarifa(2, 3)
+        tiemporeserva = [datetime(2015, 4, 24, 23, 50), datetime(2015, 4, 25, 0, 10)]
+        self.assertEquals(calcularPrecio.calcularPrecio(tarifa, tiemporeserva), Decimal(5).quantize(Decimal('1.00')))
+
+    def testTarifa10MinVie10MinSab(self):
+        tarifa = calcularPrecio.Tarifa(2, 3)
+        tiemporeserva = [datetime(2015, 4, 24, 23, 50), datetime(2015, 4, 25, 0, 10)]
+        self.assertEquals(calcularPrecio.calcularPrecio(tarifa, tiemporeserva), Decimal(5).quantize(Decimal('1.00')))
+
+
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
