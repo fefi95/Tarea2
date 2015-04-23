@@ -36,33 +36,26 @@ class TestcalcularPrecio(unittest.TestCase):
         tiemporeserva = [datetime(MINYEAR, 1, 1, 5, 50), datetime(MINYEAR, 1, 8, 5, 49)]
         self.assertEquals(calcularPrecio.calcularPrecio(tarifa, tiemporeserva), Decimal(384).quantize(Decimal('1.00')))
     
-    def testReservaMenor15(self):
+    def testReservaMenor15minutos(self):
         tarifa = calcularPrecio.Tarifa(2, 3) 
         tiemporeserva = [datetime(MINYEAR, 4, 22, 5, 50), datetime(MINYEAR, 4, 22, 6, 4)]
-        with self.assertRaises(Exception) as context:
-            calcularPrecio.calcularPrecio(tarifa, tiemporeserva)
+        self.assertRaises(Exception, calcularPrecio, tarifa, tiemporeserva)
 
-        self.assertTrue("La reserva debe ser como minimo de quince (15) minutos" in context.exception)
-
-    def testReservaMayor7(self):
+    def testReservaMayor7dias(self):
         tarifa = calcularPrecio.Tarifa(2, 3) 
         tiemporeserva = [datetime(2015, 2, 20, 15, 50), datetime(2015, 2, 27, 15, 51)]
-        with self.assertRaises(Exception) as context:
-            calcularPrecio.calcularPrecio(tarifa, tiemporeserva)
-
-        self.assertTrue("La reserva no debe ser mayor a siete (7) dias." in context.exception)
+        self.assertRaises(Exception, calcularPrecio, tarifa, tiemporeserva)
 
     def testMaxTarifaMinReserva(self):
         tarifa = calcularPrecio.Tarifa(2**31, 3**27) 
         tiemporeserva = [datetime(2004, 4, 22, 5, 50), datetime(2004, 4, 22, 6, 5)]
-        self.assertEquals(calcularPrecio.calcularPrecio(tarifa, tiemporeserva), Decimal(2**28).quantize(Decimal('1.00')))
+        self.assertEquals(calcularPrecio.calcularPrecio(tarifa, tiemporeserva), Decimal(2**31).quantize(Decimal('1.00')))
 
     def testMaxTarifaMaxReserva(self):
         tarifa = calcularPrecio.Tarifa(2**31, 3**27) 
         tiemporeserva = [datetime(2004, 4, 5, 5, 50), datetime(2004, 4, 12, 5, 50)]
         self.assertEquals(calcularPrecio.calcularPrecio(tarifa, tiemporeserva), Decimal((2**31)*24*5+(3**27*24*2)).quantize(Decimal('1.00')))
 
-        
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
