@@ -30,6 +30,12 @@ class TestcalcularPrecio(unittest.TestCase):
         tiemporeserva = [datetime(MAXYEAR, 4, 22, 5, 50), datetime(MAXYEAR, 4, 29, 5, 49)]
         self.assertEquals(calcularPrecio.calcularPrecio(diasem, tiemporeserva), Decimal(384).quantize(Decimal('1.00')))
     
+    def testminfechaPosible(self):
+        diasem = calcularPrecio.Tarifa(2, 3) 
+        tiemporeserva = [datetime(MINYEAR, 4, 22, 5, 50), datetime(MINYEAR, 4, 29, 5, 49)]
+        self.assertEquals(calcularPrecio.calcularPrecio(diasem, tiemporeserva), Decimal(384).quantize(Decimal('1.00')))
+    
+
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
